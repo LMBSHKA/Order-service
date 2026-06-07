@@ -1,5 +1,7 @@
-﻿using Application;
+﻿using API.Validators.Orders;
+using Application;
 using Data;
+using FluentValidation;
 
 namespace API
 {
@@ -9,6 +11,8 @@ namespace API
 		{
 			StartupApplication.Configure(services, configuration);
 			StartupData.Configure(services);
+
+			services.AddValidatorsFromAssemblyContaining<CreateOrderRequestValidator>();
 		}
 	}
 }

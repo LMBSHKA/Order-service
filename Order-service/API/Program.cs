@@ -1,7 +1,4 @@
 using API;
-using Data.DB;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
 
 internal class Program
 {
@@ -19,16 +16,6 @@ internal class Program
 					  .AllowCredentials();
 			});
 		});
-
-		var connectionString = builder.Configuration.GetConnectionString("DB");
-		var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
-		dataSourceBuilder.EnableDynamicJson();
-		var dataSource = dataSourceBuilder.Build();
-
-		builder.Services.AddDbContext<AppDbContext>(opt =>
-		{
-			opt.UseNpgsql(dataSource);
-		}, ServiceLifetime.Scoped);
 
 		builder.Services.AddDistributedMemoryCache();
 		ConfigureServices.Configure(builder.Services, builder.Configuration);
